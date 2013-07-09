@@ -76,8 +76,10 @@ _linewidth_for_art = 10
 _linewidth_for_box = 20
 _fileversion = 'v 20100214 1'
 _refdesOffset = 25
-_invertLength = 100
-_invertHeight = 50
+#_invertLength = 100
+#_invertHeight = 50
+_invertLength = 150
+_invertHeight = 75
 
 
 ###################
@@ -659,7 +661,8 @@ class GVPin(GVTile):
         'Renders a pin attribute appropriately to the attribute name.'
         pinspx = 15 # FIXME: move this beauty tuning to the top.
         pinspy = 15
-        pinnumspx = 110
+        #pinnumspx = 110
+        pinnumspx = 175
         pinseqoffset = 300
         pintypeoffset = 1200
         l = []

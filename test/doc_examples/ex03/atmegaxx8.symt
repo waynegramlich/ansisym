@@ -35,4 +35,4 @@ IO AVcc 18/20;;AGND 21/22
 IO AREF 20/21;;
 |
 IO Vcc 4/7;; GND 3/8
-IO VCC 6/0;; GND 5/0
+IO Vcc 6/0;; GND 5/0
