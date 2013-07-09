@@ -1,0 +1,256 @@
+#!/usr/bin/env python
+"""
+ansisym creates symbol (.sym) files for use with the
+gschem schematic editor in the gEDA suite.
+The input (.symt) file is a symple text file.
+
+Licensed under GPL V3 or later.
+"""
+
+#   Copyright 2013 David B. Curtis
+
+#   This file is part of ansisym.
+#   
+#   ansisym is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#   
+#   ansisym is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#   
+#   You should have received a copy of the GNU General Public License
+#   along with ansisym.  If not, see <http://www.gnu.org/licenses/>.
+#   
+
+import argparse
+import os
+import sys as sys
+import datetime as dt
+
+import ansisym_pkg.ansisymErrorSink as er
+from ansisym_pkg import ansisymParser
+import ansisym_pkg.ansisymGSView as vw
+
+boilerplatePath = ['.ansisym.boilerplate','~/.ansisym.boilerplate']
+
+_skeletonBoilerplate = [
+    '# Edit/expand this file to suit your needs, then',
+    '# move to ./.ansisym.boilerplate or ~/.ansisym.boilerplate',
+    'copyright="%Y J. Random Hacker"',
+    'author="J. Random Hacker"'
+    'distlicense="GPL V3 or later"',
+    'uselicense=unlimited',
+]
+
+theDate = dt.date.today()
+
+def fileNameRoot(s):
+    bn = os.path.basename(s)
+    return os.path.splitext(bn)[0]
+
+def substMetaChars(s):
+    "Interprets % meta chars in attributes and returns updated string."
+    if '%' not in s:
+        return s
+    s = s.replace('%Y',str(theDate.year))
+    return s
+
+def searchForBoilerplateFile(path, override = None):
+    "Returns a filename, or None."
+    # Don't search path if override is specified.
+    if override != None:
+        return override if os.path.isfile(override) else None
+    for name in path:
+        if os.path.isfile(name):
+            return name
+    return None
+
+def loadBoilerplate(path, override = None):
+    "Loads and preprocesses boilerplate, returns as list of [attr,value] lists."
+    fname = searchForBoilerplateFile(path, override)
+    if fname == None:
+        if override == None:
+            m = 'No boilerplate file found in: '
+            m += ', '.join(path)
+            m += " Run 'ansisym -S' to create example."
+        else:
+            m = override + ' not found.'
+        er.ror.msg('p', m)
+    with open(fname) as f:
+        bp = f.read()
+    bp = bp.split('\n')
+    bp = [x.split('=') for x in bp if x != '' and x[0] != '#']
+    global boilerplate
+    boilerplate = [[x,substMetaChars(y.strip('"'))] for x,y in bp]
+
+def writeSkeletonBoilerplate(fname):
+    "Writes the example boilerplate file."
+    with open(fname,'w') as f:
+        for ln in _skeletonBoilerplate:
+            f.write(ln)
+            f.write('\n')
+
+def processArgs():
+    parser = argparse.ArgumentParser(
+        description='Creates ANSI-style gschem symbols from a simple specification.',
+        epilog="""The goal is a symbol that is compliant with ANSI standards for schematic
+symbols. At this point ansisym is not quite there yet.  Stand back and squint, that helps. 
+Patches welcome.
+Licensed under GPL v3 or later.  Inspired by the djboxsym symbol generator.""")
+    parser.add_argument('--debug','-D',
+        help=argparse.SUPPRESS)
+    parser.add_argument('--setup', action='store_true',
+        help=argparse.SUPPRESS) # Run during set-up to force partab generation.
+    parser.add_argument('--boilerplate', '-B', 
+        help='''Use specified boilerplate file in place of default search:
+         ./.ansisym.boilerplate, ~/.ansisym.boilerplate''')
+    parser.add_argument('--block', '-b', 
+        help='Write symbol only for the selected block.')
+    parser.add_argument('--reponly', '-r', action='store_true', 
+        help='Write intermediate .symr file and stop.')
+    parser.add_argument('--fromrep', '-f', action='store_true',
+        help='Use intermediate .symr file instead of symt source.')
+    parser.add_argument('--skeletonboilerplate','-S',action='store_true',
+        help='Write a skelton boilerplate file to ./example.boilerplate and exit.')
+    parser.add_argument('--nosave', action='store_true',
+        help="Suppress saving existing symbol as '*.sym~'")
+    parser.add_argument('sourcefile', nargs='?')
+    args = parser.parse_args()
+    # Turn the debug option into a set for easy testing.
+    args.debug = set(args.debug if args.debug else [])
+    return args
+
+def exitMessage():
+    i,w,f,p = er.ror.counts
+    if w+f > 0:
+        return ' '.join([str(w),'warnings,',str(f),'fatal errors.'])
+    else:
+        return ''
+
+############################################
+#
+# Main
+#
+
+args = processArgs()
+if 'a' in args.debug:
+    print '== args: ==\n',args,'\n==========='
+
+if args.setup:
+    # ply generates the parse table whenever the grammar
+    # changes.  Unless redirected, the generated files go
+    # to the user's cwd.  In order to avoid leaving ply-turds
+    # everywhere, ansisym is called by the setup.py script
+    # forcing the parsetab to get generated, and then the
+    # import below forces the parsetab.py module to be compiled.
+    # The resulting files then land in the same installation
+    # directory as other ansisym modules.  Look in ansisymParser.py
+    # for the options to yacc() that are required to make this work.
+    if 'I' in args.debug:
+        print 'Forcing compilation of parser.'
+    import ansisym_pkg.parsetab
+    exit(0)
+ 
+# Example boilerplate convenience mode.
+if args.skeletonboilerplate:
+    er.ror.msg('i','Writing example.boilerplate -- other options ignored.')
+    writeSkeletonBoilerplate('example.boilerplate')
+    exit(0)
+
+# Normal processing flow starts here.
+
+# Load boilerplate.
+try:
+    boilerPlate = loadBoilerplate(boilerplatePath, args.boilerplate)
+except:
+    exit(1)
+    
+# Parse input and write output.
+try:
+    # Parse the input.
+    if not args.fromrep:
+        # Parse the input text.
+        if args.sourcefile == None:
+            er.ror.msg('p','No input .symt file specified.')
+        with open(args.sourcefile) as f:
+            inputText = f.read()
+        part = ansisymParser.parse(inputText, boilerplate,
+                                   1 if 'p' in args.debug else 0)
+        # Bail if fatal errors.
+        if er.ror.haveFatalErrors:
+            raise er.ansisymPanic
+    else:
+        # Load existing .symr file.
+        try:
+            with open(args.sourcefile) as f:
+                part = mdl.loadRep(f)
+        except:
+            er.ror.msg('p', "Can't read intermediate representation from " + args.sourcefile)
+
+    # Debug output: dump part model.
+    if 'm' in args.debug:
+        print '==== Model ===='
+        print part
+
+    # Validate the part model.
+    if not part.isValid:
+        #exit(1)
+        raise er.ansisymPanic
+    
+    # Write the output.
+    if args.reponly:
+        # Write a .symr file and exit.
+        try:
+            fn = fileNameRoot(args.sourcefile) + '.symr'
+            with open(fn,'w') as f:
+                f.write(repr(part))
+        except:
+            er.ror.msg('p',"Can't write intermediate representation to " + fn)
+    else:
+        allBlocks = part.blockNameSet()
+        if args.block == None:
+            selectedBlocks = allBlocks
+        else:
+            if args.block in allBlocks:
+               selectedBlocks = set([args.block])
+            else:
+                er.ror.msg('p', ' '.join([args.block,'is not a block id.']))
+        # Create a gEDA view on the part model.
+        view = vw.GVPart(part)
+        if 'v' in args.debug:
+            print '==== View ===='
+            print view
+        # Assign pin sequences.
+        view.assignPinseqAll()
+        view.addSlotAttrsAll()
+        # Lay out the drawing elements.
+        view.layoutAll()
+        if 'l' in args.debug:
+            print '==== View post layout ===='
+            print view
+        # Write selected packages and blocks.
+        for name in selectedBlocks:
+            l = view.render(name)
+            if not args.nosave:
+                # Preserve existing as .sym~
+                try:
+                    os.rename(name + '.sym', name + '.sym~')
+                except:
+                    pass
+            with open(name + '.sym', 'w') as f:
+                for ln in l:
+                    f.write(ln)
+                    f.write('\n')
+    
+except er.ansisymPanic:
+    print exitMessage()
+    sys.exit(1)
+
+m = exitMessage()
+if m:
+    print m
+sys.exit(0)
+

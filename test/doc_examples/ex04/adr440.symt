@@ -1,0 +1,15 @@
+# '374 register
+A device ADR440
+A description "Precision voltage reference"
+A refdes U?
+AB
+# Logic symbol
+BK adr440-1
+T ADR440
+IO Vin 2 ;;Vout 6
+|
+IO ;; trim 5
+|
+IO ;; GND 4
+# Unused pins
+U 1,3,7,8

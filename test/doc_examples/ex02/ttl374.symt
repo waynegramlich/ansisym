@@ -1,0 +1,30 @@
+# '374 register
+A device 74XXX374
+A description "TTL 8-bit register"
+A refdes U?
+AB
+# Logic symbol
+BK 74x374-1
+T 
+IO ~EN1 1;;
+IO ^C2 11;;
+] "'374"
+IO 2D 3;;!tri 1 2
+-
+IO _ 4;;!trin _ 5
+-
+IO _ 7;;!trin _ 6
+-
+IO _ 8;;!trin _ 9
+-
+IO _ 13;;!trin _ 12
+-
+IO _ 14;;!trin _ 15
+-
+IO _ 17;;!trin _ 16
+-
+IO _ 18;;!trin _ 19
+# Power supply symbol
+BK 74x374-p1
+T @device@
+IO Vcc 20;;GND 10

@@ -1,0 +1,43 @@
+v 20100214 1
+L  300  600 1000  600 3 20 1 0  -1 -1
+L  300    0  300  600 3 20 1 0  -1 -1
+L  300    0 1000    0 3 20 1 0  -1 -1
+L 1000    0 1000  600 3 20 1 0  -1 -1
+T 1000 1800 5 10 0 0 0 0 1
+description=TTL 2-input NAND
+T 1000 1600 5 10 0 0 0 0 1
+copyright=2013 J. Random Hacker
+T 1000 1400 5 10 0 0 0 0 1
+author=J. Random Hacker
+T 1000 1200 5 10 0 0 0 0 1
+distlicense=GPL V3 or later
+T 1000 1000 5 10 0 0 0 0 1
+device=74x00
+T 1000 800 5 10 0 0 0 0 1
+uselicense=unlimited
+T 650 625 5 10 1 1 0 3 1
+refdes=U?
+T 413 385 9 10 1 1 0 0 1
+74x00
+P 0 200 300 200 1 0 0
+{
+T 315 200 5 8 1 1 0 1 1
+pinlabel=Vcc
+T 190 215 5 8 1 1 0 6 1
+pinnumber=14
+T 300 200 5 10 0 0 0 4 1
+pinseq=1
+T 300 215 5 10 0 0 0 1 1
+pintype=pwr
+}
+P 1300 200 1000 200 1 0 0
+{
+T 985 200 5 8 1 1 0 7 1
+pinlabel=GND
+T 1110 215 5 8 1 1 0 0 1
+pinnumber=7
+T 1000 200 5 10 0 0 0 4 1
+pinseq=2
+T 1000 215 5 10 0 0 0 1 1
+pintype=pwr
+}

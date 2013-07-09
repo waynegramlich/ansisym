@@ -1,0 +1,41 @@
+v 20100214 1
+L  300  600 1200  600 3 20 1 0  -1 -1
+L  300    0  300  600 3 20 1 0  -1 -1
+L  300    0 1200    0 3 20 1 0  -1 -1
+L 1200    0 1200  600 3 20 1 0  -1 -1
+T 1200 1600 5 10 0 0 0 0 1
+description=TTL 8-bit register
+T 1200 1400 5 10 0 0 0 0 1
+copyright=2013 J. Random Hacker
+T 1200 1200 5 10 0 0 0 0 1
+author=J. Random Hacker
+T 1200 1000 5 10 0 0 0 0 1
+distlicense=GPL V3 or later
+T 1200 800 5 10 0 0 0 0 1
+uselicense=unlimited
+T 750 625 5 10 1 1 0 3 1
+refdes=U?
+T 750 385 9 10 1 1 0 3 1
+device=74XXX374
+P 0 200 300 200 1 0 0
+{
+T 315 200 5 8 1 1 0 1 1
+pinlabel=Vcc
+T 190 215 5 8 1 1 0 6 1
+pinnumber=20
+T 300 200 5 10 0 0 0 4 1
+pinseq=1
+T 300 215 5 10 0 0 0 1 1
+pintype=pwr
+}
+P 1500 200 1200 200 1 0 0
+{
+T 1185 200 5 8 1 1 0 7 1
+pinlabel=GND
+T 1310 215 5 8 1 1 0 0 1
+pinnumber=10
+T 1200 200 5 10 0 0 0 4 1
+pinseq=2
+T 1200 215 5 10 0 0 0 1 1
+pintype=pwr
+}

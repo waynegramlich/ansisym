@@ -1,0 +1,6 @@
+# Edit/expand this file to suit your needs, then
+# move to ./.ansisym.boilerplate or ~/.ansisym.boilerplate
+copyright="%Y J. Random Hacker"
+author="J. Random Hacker"
+distlicense="GPL V3 or later"
+uselicense=unlimited

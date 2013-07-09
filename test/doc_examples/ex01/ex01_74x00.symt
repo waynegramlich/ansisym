@@ -1,0 +1,21 @@
+# Generic '00 Quad 2-input NAND
+A device 74x00
+A description "TTL 2-input NAND"
+A refdes U?
+AB
+# Positive logic symbol
+BK 74x00-1
+T &&
+IO A 1,4,9,12;;
+IO ;;~Y 3,6,8,11
+IO B 2,5,10,13;;
+# Negative logic symbol
+BK 74x00-n1
+T &ge&1
+IO ~A 1,4,9,12;;
+IO ;;Y 3,6,8,11
+IO ~B 2,5,10,13;;
+# Power supply symbol
+BK 74x00-p1
+T @device@
+IO Vcc 14;;GND 7

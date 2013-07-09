@@ -1,0 +1,16 @@
+build/
+dist/
+ansisym.egg-info/
+install.record
+*.py~
+*.pyc
+ansisym~
+parser.out
+parsetab.py
+*.sym
+!test/*/expect/*.sym
+!test/*/*/expect/*.sym
+*.sym~
+*.sym#
+*.symt~
+*.html
