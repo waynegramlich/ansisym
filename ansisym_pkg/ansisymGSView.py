@@ -345,7 +345,7 @@ class GVTextGlyph(GVTextGlyphBase):
             align = gEDAtextalign['ll']
         l = ['T %d %d %d %d %d %d %d %d 1' % 
              (x, self.lo.y, gEDAcolor['text'],
-              self.textFont.size, 1, 1, 0, align)]
+              self.textFont.size, 1, 0, 0, align)]
         l.append(self.glyph.text)
         return l
 
