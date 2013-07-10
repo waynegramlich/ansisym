@@ -1,0 +1,10 @@
+# Dual N-channel ehnahcement mode MOSFET
+A device DMN65D8LDW
+A description "Dual N-chan en-mode MOSFET"
+A refdes U?
+AB
+BK dmn65d8ldw-1
+T DMN65D8LDW
+IO ;;D 6,3
+| [600,800]
+IO G 2,5;;S 1,4
