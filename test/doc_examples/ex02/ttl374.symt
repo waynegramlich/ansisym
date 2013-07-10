@@ -1,5 +1,6 @@
 # '374 register
-A device 74XXX374
+A device 74xx374
+A bomdevice 74XXX374
 A description "TTL 8-bit register"
 A refdes U?
 AB
@@ -26,5 +27,5 @@ IO _ 17;;!trin _ 16
 IO _ 18;;!trin _ 19
 # Power supply symbol
 BK 74x374-p1
-T @device@
+T @bomdevice@
 IO Vcc 20;;GND 10
