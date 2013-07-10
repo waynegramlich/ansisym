@@ -1,5 +1,6 @@
 # '374 register
 A device ATMegaXX8
+A bomdevice ATMegaXX8
 A description "ATMega xx8 uP"
 A refdes U?
 AB
@@ -29,7 +30,7 @@ IO ADC6 19/0;; "(PCINT22/OC0A/AIN0) PD6" 10/12
 IO ADC7 22/0;; "(PCINT23/AIN1) PD7" 11/13
 # Power supply symbol
 BK tqfp:megaxx8-tqfp-p1/ dip:megaxx8-dip-p1
-T @device@
+T @bomdevice@
 IO AVcc 18/20;;AGND 21/22
 |
 IO AREF 20/21;;
