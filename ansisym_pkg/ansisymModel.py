@@ -356,6 +356,7 @@ class GlyphicTile(Tile):
             elif chunk[0] == '@':
                 # Create a RefGlyph
                 attrName = chunk.strip('@')
+                # FIXME: add semantic check disallowing 'device' as a refglyph
                 try:
                     attr = attrDict[attrName]
                     if attr.refBy(blockName):
