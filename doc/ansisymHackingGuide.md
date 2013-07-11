@@ -292,7 +292,6 @@ Feel free to help eradicate them and send a patch.
   - Compressed
   - Semi-compressed
 
-- Add capability to include the package id as meta-text.
 - Refactor renderer to enable generating symbols for other
   schematic editors.
 
