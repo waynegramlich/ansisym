@@ -285,7 +285,7 @@ class RefGlyph(Glyph):
     def __init__(self, anAttr, aBlockName):
         assert not anAttr.refBy(aBlockName) # An attr can't be refered to multiple times in a block.
         self._attr = anAttr
-        self._attr.refTo = True
+        self._attr.addRef(aBlockName)
     def reprvals(self):
         return [self._attr]
     @property
@@ -623,10 +623,11 @@ class Block(BlockBase):
 # Attribute classes. 
 #
 class Attr(ModelObject):
-    def __init__(self, aName, aValue, refTo = set()):
+    def __init__(self, aName, aValue, refTo = None):
         self.name = aName
         self.value = str(aValue)
-        self._refTo = refTo # Is a set of block names
+        # _refTo is a set of block names
+        self._refTo = refTo if refTo != None else set()
     def reprvals(self):
         l = [self.name, self.value, self._refTo] 
         return l
