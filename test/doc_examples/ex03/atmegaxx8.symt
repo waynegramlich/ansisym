@@ -5,7 +5,7 @@ A description "ATMega xx8 uP"
 A refdes U?
 AB
 # Main symbol
-BK TQFP32:megaxx8-tqfp-1/ DIP28:megaxx8-dip-1
+BK TQFP32:megaxx8-tqfp-1/DIP28:megaxx8-dip-1
 T 
 IO ~"PC6 (-RESET/PCINT14)" 29/1;;
 |
@@ -29,7 +29,7 @@ IO "PC5 (ADC5/SCL/PCINT13)" 28/28;; "(PCINT21/OC0B/T1) PD5" 9/11
 IO ADC6 19/0;; "(PCINT22/OC0A/AIN0) PD6" 10/12
 IO ADC7 22/0;; "(PCINT23/AIN1) PD7" 11/13
 # Power supply symbol
-BK TQFP32:megaxx8-tqfp-p1/ DIP28:megaxx8-dip-p1
+BK TQFP32:megaxx8-tqfp-p1/DIP28:megaxx8-dip-p1
 T @bomdevice@
 IO AVcc 18/20;;AGND 21/22
 |
