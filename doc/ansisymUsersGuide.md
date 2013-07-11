@@ -303,32 +303,187 @@ presense.
 
 Here is an example schematic using these symbols:
 
-- Add picture here of mux.
+![(image: x00 mux)](images/aoi.png "multiplexor")
 
-(-p1, -c1, -n1)
 
 ## Example #2 - Necks, Clocks, anonymous pins, and Tri-state outputs.
 
 In which control blocks and some special pin types are demonstrated.
 
+    # '374 register
+    A device 74xx374
+    A bomdevice 74XXX374
+    A description "TTL 8-bit register"
+    A refdes U?
+    AB
+    # Logic symbol
+    BK 74x374-1
+    T 
+    IO ~EN1 1;;
+    IO ^C2 11;;
+    ] "'374"
+    IO 2D 3;;!tri 1 2
+    -
+    IO _ 4;;!trin _ 5
+    -
+    IO _ 7;;!trin _ 6
+    -
+    IO _ 8;;!trin _ 9
+    -
+    IO _ 13;;!trin _ 12
+    -
+    IO _ 14;;!trin _ 15
+    -
+    IO _ 17;;!trin _ 16
+    -
+    IO _ 18;;!trin _ 19
+    # Power supply symbol
+    BK 74x374-p1
+    T @bomdevice@
+    IO Vcc 20;;GND 10
+
+Things to note:
+
+- Clock pin flag ^
+- Neck bands ]
+- Tri-state pin flag !tri
+- Line-across bands -
+- Tri-state pin flag without pin art !trin
+- Anonymous pin _
+
+![(image: 374 register)](images/ttl374.png "register")
+
 ## Example #3 - A Microcontroller
 
 In which a complicated part with multiple package footprints is demonstrated.
 
+
+    # '374 register
+    A device ATMEGAXX8
+    A bomdevice ATMegaXX8
+    A description "ATMega xx8 uP"
+    A refdes U?
+    AB
+    # Main symbol
+    BK TQFP32:megaxx8-tqfp-1/DIP28:megaxx8-dip-1
+    T 
+    IO ~"PC6 (-RESET/PCINT14)" 29/1;;
+    |
+    IO "PB6 (PCINT6/XTAL1/TOSC1)" 7/9;;
+    |
+    IO "PB7 (PCINT7/XTAL2/TOSC2)" 8/10;;
+    ] ATMegaXX8-&pkg&
+    IO ;; "(PCINT0/CLKO/ICP1) PB0" 12/14
+    IO ;; "(PCINT1/OC1A) PB1" 13/15
+    IO ;; "(PCINT2/-SS/OC1B) PB2" 14/16
+    IO ;; "(PCINT3/OC2A/MOSI) PB3" 15/17
+    IO ;; "(PCINT4/MISO) PB4" 16/18
+    IO ;; "(PCINT5/SCK) PB5" 17/19
+    |
+    IO "PC0 (ADC0/PCINT8)" 23/23;; "(PCINT16/RXD) PD0" 30/2
+    IO "PC1 (ADC1/PCINT9)" 24/24;; "(PCINT17/TXD) PD1" 31/3
+    IO "PC2 (ADC2/PCINT10)" 25/25;; "(PCINT18/INT0) PD2" 32/4
+    IO "PC3 (ADC3/PCINT11)" 26/26;; "(PCINT19/OC2B/INT1) PD3" 1/5
+    IO "PC4 (ADC4/SDA/PCINT12)" 27/27;; "(PCINT20/XCK/T0) PD4" 2/6
+    IO "PC5 (ADC5/SCL/PCINT13)" 28/28;; "(PCINT21/OC0B/T1) PD5" 9/11
+    IO ADC6 19/0;; "(PCINT22/OC0A/AIN0) PD6" 10/12
+    IO ADC7 22/0;; "(PCINT23/AIN1) PD7" 11/13
+    # Power supply symbol
+    BK TQFP32:megaxx8-tqfp-p1/DIP28:megaxx8-dip-p1
+    T @bomdevice@
+    IO AVcc 18/20;;AGND 21/22
+    |
+    IO AREF 20/21;;
+    |
+    IO Vcc 4/7;; GND 3/8
+    IO Vcc 6/0;; GND 5/0
+
+Things to note:
+
+- Two packages, named TQFP32 and DIP28. The '/' is package list seperator. Every package-block 
+  must go to a unique output file.
+- Pin number lists are now per package, in the same order as package name:file list.
+- Long pin names with spaces can be quoted.
+- Shadow pin (pin number 0) can be used in multi-package blocks.  In this case, the TQFP
+  package has pins that the DIP does not.  The shadow pin reserves space for the pin
+  in layout computations, but omits the pin on parts where it is not used.
+
 Note: Shadow pins and slotting can not be used together in the
 same symbol block.  
+
+![(image: ATMegaXX8)](images/atmega.png "micro controller")
 
 ## Example #4 - Unused Pins
 
 In which unused pins are demonstrated.
+
+    # '374 register
+    A device ADR440
+    A description "Precision voltage reference"
+    A refdes U?
+    AB
+    # Logic symbol
+    BK adr440-1
+    T ADR440
+    IO Vin 2 ;;Vout 6
+    |
+    IO ;; trim 5
+    |
+    IO ;; GND 4
+    # Unused pins
+    U 1,3,7,8
+
+Ansisym checks for unused pins on a per-package basis.
+It expects that all pins from 1 to the max encountered on the package are used
+at least once.
+It is not an error for a pin number to appear multiple times, as long as it
+is on a different block (presumably an alternate view of the same block).
+
+The 'U' psuedo-block can list unused pins to suppress the error message.
+It also has a ``U <blockname>:<pinlist>`` form.
+
+![(image: adr440)](images/adr440.png "voltage reference")
 
 ## Example #5 - Spacers
 
 In which jiggery-pokery enabling deviant symbols is demonstrated.
 
 
+    A device ADuM744x
+    A bomdevice ADuM744x
+    A description isolator
+    A refdes U?
+    AB
+    BK ADuM744x-1
+    # Isolator
+    T ADuM744x
+    IO _ 3,4,5,6,12,11;;_ 14,13,12,11,5,6
+    | [400,400]
+    # Power supply symbols
+    BK ADuM744x-pa1
+    T @bomdevice@
+    IO Vdd1A 1;;GND1A 2
+    IO Vdd1B 7;;GND1B 8
+    BK ADuM744x-pb1
+    T @bomdevice@
+    IO Vdd2A 16;;GND2A 15
+    IO Vdd2B 10;;GND2B 9
 
+Things to note:
 
+- Any place center-tile text can appear a space reservation can appear.
+- Form is [<width>] or [<width>,<height>] is gschem layout units.
+- The %showspacers directive turns on a dashed-line outline of the
+  spacer rectangle.  Use this to get a better view of the actual
+  layout space being created, and then delete them during manual edits.
+
+Spacers simply reserve space during layout for arwork added later 
+manual edits of the symbol file.
+
+In the image below, the top block and the power blocks are as they
+come from ansisym, and the second block is after manual editing.
+
+![(image: adum744x)](images/adum744x.png "isolator")
 
 # ansisym Reference
 
