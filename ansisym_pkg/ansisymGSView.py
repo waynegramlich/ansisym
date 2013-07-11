@@ -1248,7 +1248,7 @@ class GVPart(GViewer):
         widths = [self.directives['minwidth']]
         if self.directives['samewidth']:
             widths.extend([b.minWidth() for b in self.blockViews])
-        minw = max(widths)
+        minw = gridUp(max(widths))
         if minw == 0:
             minw = None
         # Perform detail layout.

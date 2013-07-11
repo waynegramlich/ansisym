@@ -724,11 +724,11 @@ class Part(ModelObject):
         valid = True
         for a in _requiredAttrs:
             if a not in self.attrs:
-                er.ror.msg('f',' '.join(['Required attribute',a,'not found.']))
+                er.ror.msg('f',''.join(["Required attribute '",a,"' not found."]))
                 valid = False
         for a in _warnAttrs:
             if a not in self.attrs:
-                er.ror.msg('w',' '.join(['Standard attribute',a,'not found.']))
+                er.ror.msg('w',''.join(["Standard attribute '",a,"' not found."]))
         return valid
     def _validateBlockNames(self):
         "All block names must be unique or the files will clobber each other."

@@ -40,7 +40,7 @@ _skeletonBoilerplate = [
     '# Edit/expand this file to suit your needs, then',
     '# move to ./.ansisym.boilerplate or ~/.ansisym.boilerplate',
     'copyright="%Y J. Random Hacker"',
-    'author="J. Random Hacker"'
+    'author="J. Random Hacker"',
     'distlicense="GPL V3 or later"',
     'uselicense=unlimited',
 ]
@@ -78,13 +78,22 @@ def loadBoilerplate(path, override = None):
             m += " Run 'ansisym -S' to create example."
         else:
             m = override + ' not found.'
-        er.ror.msg('p', m)
+        er.ror.msg('w', m)
+        return []
     with open(fname) as f:
-        bp = f.read()
-    bp = bp.split('\n')
-    bp = [x.split('=') for x in bp if x != '' and x[0] != '#']
-    global boilerplate
-    boilerplate = [[x,substMetaChars(y.strip('"'))] for x,y in bp]
+        try:
+            bp = f.read()
+        except:
+            er.ror.msg('w',"Can't read boilerplate file" + fname)
+            return []
+    try:
+        bp = bp.split('\n')
+        bp = [x.split('=') for x in bp if x != '' and x[0] != '#']
+        boilerplate = [[x,substMetaChars(y.strip('"'))] for x,y in bp]
+    except:
+        er.ror.msg('w', "Syntax error in boilerplate file.")
+        boilerplate = []
+    return boilerplate
 
 def writeSkeletonBoilerplate(fname):
     "Writes the example boilerplate file."
@@ -166,8 +175,9 @@ if args.skeletonboilerplate:
 try:
     boilerPlate = loadBoilerplate(boilerplatePath, args.boilerplate)
 except:
+    er.ror.msg('p',"Can't read boilerplate.")
     exit(1)
-    
+ 
 # Parse input and write output.
 try:
     # Parse the input.
@@ -177,7 +187,7 @@ try:
             er.ror.msg('p','No input .symt file specified.')
         with open(args.sourcefile) as f:
             inputText = f.read()
-        part = ansisymParser.parse(inputText, boilerplate,
+        part = ansisymParser.parse(inputText, boilerPlate,
                                    1 if 'p' in args.debug else 0)
         # Bail if fatal errors.
         if er.ror.haveFatalErrors:
