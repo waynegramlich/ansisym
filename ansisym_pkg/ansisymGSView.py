@@ -26,6 +26,7 @@
 #   GVGlyph
 #     GVTextGlyphBase
 #       GVTextGlyph -> mdl.TextGlyph
+#         GVPkgTextGlyph -> mdl.GraphicGlyph (A bit of sleight-of-hand here.)
 #       GVRefGlyph -> mdl.RefGlyph
 #     GVGraphicGlyphTri -> mdl.GraphicGlyph
 #     GVGraphicGlyphDrv -> mdl.GraphicGlyph
@@ -54,7 +55,7 @@
 # Layout -- Layout information.
 #
 # Note:
-# 1. GViewer classes can not be re-contructred from repr() output,
+# 1. GViewer classes can not be re-contructed from repr() output,
 #    since the parent object is not included in repr() output.
 
 from collections import namedtuple
@@ -246,6 +247,9 @@ class GViewer(object):
     def pinFont(self):
         return self.parent.pinFont
     @property
+    def parentBlock(self):
+        return self.parent.parentBlock
+    @property
     def parentPart(self):
         return self.parent.parentPart
     @property 
@@ -313,7 +317,7 @@ class GVGlyph(GViewer):
     def strokes(self):
         'Returns list of Stroke() objects.'
         return []
-    def render(self):
+    def render(self, pkg):
         return []
     @property
     def width(self):
@@ -335,7 +339,7 @@ class GVTextGlyphBase(GVGlyph):
 
 class GVTextGlyph(GVTextGlyphBase):
     "View onto a simple text string."
-    def render(self):
+    def _renderTRecord(self):
         # T x y color size vis shownameval angle align numlines
         if self.singleGlyph:
             x = self.lo.middleX
@@ -346,12 +350,15 @@ class GVTextGlyph(GVTextGlyphBase):
         l = ['T %d %d %d %d %d %d %d %d 1' % 
              (x, self.lo.y, gEDAcolor['text'],
               self.textFont.size, 1, 0, 0, align)]
+        return l
+    def render(self, pkg):
+        l = self._renderTRecord()
         l.append(self.glyph.text)
         return l
 
 class GVRefGlyph(GVTextGlyphBase):
     "View onto an attribute reference."
-    def render(self):
+    def render(self, pkg):
         # T x y color size vis shownameval angle align numlines
         show = gEDAAttrShow['val']
         if self.singleGlyph:
@@ -364,7 +371,17 @@ class GVRefGlyph(GVTextGlyphBase):
                   self.textFont.size, 1, show, 0, gEDAtextalign['ll'])]
         l.append('{0:s}={1:s}'.format(self.glyph.attrName, self.glyph.text))
         return l
- 
+
+class GVPkgTextGlyph(GVTextGlyph):
+    @property
+    def width(self):
+        return max([self.textFont.measure(pkgName) 
+            for pkgName in self.parentBlock.pkgSet])
+    def render(self, pkgName):
+        l = self._renderTRecord()
+        l.append(pkgName)
+        return l
+        
 class GVGraphicGlyph(GVGlyph):
     def reprvals(self):
         return [self.lo]
@@ -419,6 +436,7 @@ GVGlyph.viewers['GraphicGlyph-tristate'] = GVGraphicGlyphTri
 GVGlyph.viewers['GraphicGlyph-driver'] = GVGraphicGlyphDrv
 GVGlyph.viewers['GraphicGlyph-ge'] = GVGraphicGlyphGE
 GVGlyph.viewers['GraphicGlyph-testbox'] = GVGraphicGlyphTestbox
+GVGlyph.viewers['GraphicGlyph-pkg'] = GVPkgTextGlyph
 
 #####################
 # Tile view classes #
@@ -762,7 +780,7 @@ class GVGlyphicTile(GVTile):
     def render(self, pkg):
         l = []
         for g in self.glyphviews:
-            l.extend(g.render())
+            l.extend(g.render(pkg))
         return l
     @property
     def singleGlyph(self):
@@ -993,6 +1011,12 @@ class GVBlock(GViewer):
     @property
     def blockNameSet(self):
         return self.block.blockNameSet()
+    @property
+    def pkgSet(self):
+        return self.block.pkgSet()
+    @property
+    def parentBlock(self):
+        return self
     @property
     def parentBlockName(self):
         return self.block.referenceBlockName

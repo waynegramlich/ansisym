@@ -207,7 +207,10 @@ class PinTile(Tile):
         pass
     def pinsUsed(self, pkg = None):
         p = pkg if pkg != None else unnamedPackage
-        return set(self.pinListDict[p])
+        try:
+            return set(self.pinListDict[p])
+        except:
+            return set()
     @property
     def isValid(self):
         ns = self.numSlots
@@ -302,7 +305,8 @@ class RefGlyph(Glyph):
         return self._attr.name
     
 class GraphicGlyph(Glyph):
-    _implements = frozenset(['tristate','driver','ge','testbox'])
+    _implements = frozenset(['tristate','driver','ge','testbox','pkg'])
+    # 'pkg' isn't really a graphic element, but process flow is the same.
     def __init__(self, glyphname):
         self.glyph = glyphname.strip('&')
     def reprvals(self):
