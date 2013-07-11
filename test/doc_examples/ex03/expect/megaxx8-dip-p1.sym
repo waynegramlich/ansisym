@@ -1,0 +1,76 @@
+v 20100214 1
+L  300 1600 1500 1600 3 20 1 0  -1 -1
+L  300    0  300 1600 3 20 1 0  -1 -1
+L  300    0 1500    0 3 20 1 0  -1 -1
+L 1500    0 1500 1600 3 20 1 0  -1 -1
+T 1500 2800 5 10 0 0 0 0 1
+description=ATMega xx8 uP
+T 1500 2600 5 10 0 0 0 0 1
+copyright=2013 J. Random Hacker
+T 1500 2400 5 10 0 0 0 0 1
+author=J. Random Hacker
+T 1500 2200 5 10 0 0 0 0 1
+distlicense=GPL V3 or later
+T 1500 2000 5 10 0 0 0 0 1
+device=ATMEGAXX8
+T 1500 1800 5 10 0 0 0 0 1
+uselicense=unlimited
+T 900 1625 5 10 1 1 0 3 1
+refdes=U?
+T 900 1385 9 10 1 1 0 3 1
+bomdevice=ATMegaXX8
+P 0 1200 300 1200 1 0 0
+{
+T 315 1200 5 8 1 1 0 1 1
+pinlabel=AVcc
+T 125 1215 5 8 1 1 0 6 1
+pinnumber=20
+T 0 1200 5 10 0 0 0 7 1
+pinseq=1
+T -900 1215 5 10 0 0 0 7 1
+pintype=in
+}
+P 1800 1200 1500 1200 1 0 0
+{
+T 1485 1200 5 8 1 1 0 7 1
+pinlabel=AGND
+T 1675 1215 5 8 1 1 0 0 1
+pinnumber=22
+T 1800 1200 5 10 0 0 0 1 1
+pinseq=2
+T 2700 1215 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 800 300 800 1 0 0
+{
+T 315 800 5 8 1 1 0 1 1
+pinlabel=AREF
+T 125 815 5 8 1 1 0 6 1
+pinnumber=21
+T 0 800 5 10 0 0 0 7 1
+pinseq=3
+T -900 815 5 10 0 0 0 7 1
+pintype=in
+}
+P 0 400 300 400 1 0 0
+{
+T 315 400 5 8 1 1 0 1 1
+pinlabel=Vcc
+T 125 415 5 8 1 1 0 6 1
+pinnumber=7
+T 0 400 5 10 0 0 0 7 1
+pinseq=4
+T -900 415 5 10 0 0 0 7 1
+pintype=pwr
+}
+P 1800 400 1500 400 1 0 0
+{
+T 1485 400 5 8 1 1 0 7 1
+pinlabel=GND
+T 1675 415 5 8 1 1 0 0 1
+pinnumber=8
+T 1800 400 5 10 0 0 0 1 1
+pinseq=5
+T 2700 415 5 10 0 0 0 1 1
+pintype=pwr
+}

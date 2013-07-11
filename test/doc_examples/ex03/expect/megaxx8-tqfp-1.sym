@@ -1,0 +1,309 @@
+v 20100214 1
+L  300 4400 3900 4400 3 20 1 0  -1 -1
+L  300 4400  300 3300 3 20 1 0  -1 -1
+L 3900 4400 3900 3300 3 20 1 0  -1 -1
+L  300 3300  500 3300 3 20 1 0  -1 -1
+L 3900 3300 3700 3300 3 20 1 0  -1 -1
+L  500 3300  500 3100 3 20 1 0  -1 -1
+L 3700 3300 3700 3100 3 20 1 0  -1 -1
+L  300 3100 3900 3100 3 20 1 0  -1 -1
+L  300    0  300 3100 3 20 1 0  -1 -1
+L 3900    0 3900 3100 3 20 1 0  -1 -1
+L  300    0 3900    0 3 20 1 0  -1 -1
+L  150 4200  150 4275 3 10 1 0  -1 -1
+L  150 4275  300 4200 3 10 1 0  -1 -1
+T 3900 5800 5 10 0 0 0 0 1
+description=ATMega xx8 uP
+T 3900 5600 5 10 0 0 0 0 1
+copyright=2013 J. Random Hacker
+T 3900 5400 5 10 0 0 0 0 1
+author=J. Random Hacker
+T 3900 5200 5 10 0 0 0 0 1
+distlicense=GPL V3 or later
+T 3900 5000 5 10 0 0 0 0 1
+bomdevice=ATMegaXX8
+T 3900 4800 5 10 0 0 0 0 1
+device=ATMEGAXX8
+T 3900 4600 5 10 0 0 0 0 1
+uselicense=unlimited
+T 2100 4425 5 10 1 1 0 3 1
+refdes=U?
+P 0 4200 300 4200 1 0 0
+{
+T 315 4200 5 8 1 1 0 1 1
+pinlabel=PC6 (-RESET/PCINT14)
+T 125 4215 5 8 1 1 0 6 1
+pinnumber=29
+T 0 4200 5 10 0 0 0 7 1
+pinseq=1
+T -900 4215 5 10 0 0 0 7 1
+pintype=in
+}
+P 0 3800 300 3800 1 0 0
+{
+T 315 3800 5 8 1 1 0 1 1
+pinlabel=PB6 (PCINT6/XTAL1/TOSC1)
+T 125 3815 5 8 1 1 0 6 1
+pinnumber=7
+T 0 3800 5 10 0 0 0 7 1
+pinseq=2
+T -900 3815 5 10 0 0 0 7 1
+pintype=in
+}
+P 0 3400 300 3400 1 0 0
+{
+T 315 3400 5 8 1 1 0 1 1
+pinlabel=PB7 (PCINT7/XTAL2/TOSC2)
+T 125 3415 5 8 1 1 0 6 1
+pinnumber=8
+T 0 3400 5 10 0 0 0 7 1
+pinseq=3
+T -900 3415 5 10 0 0 0 7 1
+pintype=in
+}
+T 1225 3135 9 10 1 0 0 0 1
+ATMegaXX8-
+T 2307 3135 9 10 1 0 0 0 1
+TQFP32
+P 4200 3000 3900 3000 1 0 0
+{
+T 3885 3000 5 8 1 1 0 7 1
+pinlabel=(PCINT0/CLKO/ICP1) PB0
+T 4075 3015 5 8 1 1 0 0 1
+pinnumber=12
+T 4200 3000 5 10 0 0 0 1 1
+pinseq=4
+T 5100 3015 5 10 0 0 0 1 1
+pintype=out
+}
+P 4200 2800 3900 2800 1 0 0
+{
+T 3885 2800 5 8 1 1 0 7 1
+pinlabel=(PCINT1/OC1A) PB1
+T 4075 2815 5 8 1 1 0 0 1
+pinnumber=13
+T 4200 2800 5 10 0 0 0 1 1
+pinseq=5
+T 5100 2815 5 10 0 0 0 1 1
+pintype=out
+}
+P 4200 2600 3900 2600 1 0 0
+{
+T 3885 2600 5 8 1 1 0 7 1
+pinlabel=(PCINT2/-SS/OC1B) PB2
+T 4075 2615 5 8 1 1 0 0 1
+pinnumber=14
+T 4200 2600 5 10 0 0 0 1 1
+pinseq=6
+T 5100 2615 5 10 0 0 0 1 1
+pintype=out
+}
+P 4200 2400 3900 2400 1 0 0
+{
+T 3885 2400 5 8 1 1 0 7 1
+pinlabel=(PCINT3/OC2A/MOSI) PB3
+T 4075 2415 5 8 1 1 0 0 1
+pinnumber=15
+T 4200 2400 5 10 0 0 0 1 1
+pinseq=7
+T 5100 2415 5 10 0 0 0 1 1
+pintype=out
+}
+P 4200 2200 3900 2200 1 0 0
+{
+T 3885 2200 5 8 1 1 0 7 1
+pinlabel=(PCINT4/MISO) PB4
+T 4075 2215 5 8 1 1 0 0 1
+pinnumber=16
+T 4200 2200 5 10 0 0 0 1 1
+pinseq=8
+T 5100 2215 5 10 0 0 0 1 1
+pintype=out
+}
+P 4200 2000 3900 2000 1 0 0
+{
+T 3885 2000 5 8 1 1 0 7 1
+pinlabel=(PCINT5/SCK) PB5
+T 4075 2015 5 8 1 1 0 0 1
+pinnumber=17
+T 4200 2000 5 10 0 0 0 1 1
+pinseq=9
+T 5100 2015 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 1600 300 1600 1 0 0
+{
+T 315 1600 5 8 1 1 0 1 1
+pinlabel=PC0 (ADC0/PCINT8)
+T 125 1615 5 8 1 1 0 6 1
+pinnumber=23
+T 0 1600 5 10 0 0 0 7 1
+pinseq=10
+T -900 1615 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 1600 3900 1600 1 0 0
+{
+T 3885 1600 5 8 1 1 0 7 1
+pinlabel=(PCINT16/RXD) PD0
+T 4075 1615 5 8 1 1 0 0 1
+pinnumber=30
+T 4200 1600 5 10 0 0 0 1 1
+pinseq=11
+T 5100 1615 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 1400 300 1400 1 0 0
+{
+T 315 1400 5 8 1 1 0 1 1
+pinlabel=PC1 (ADC1/PCINT9)
+T 125 1415 5 8 1 1 0 6 1
+pinnumber=24
+T 0 1400 5 10 0 0 0 7 1
+pinseq=12
+T -900 1415 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 1400 3900 1400 1 0 0
+{
+T 3885 1400 5 8 1 1 0 7 1
+pinlabel=(PCINT17/TXD) PD1
+T 4075 1415 5 8 1 1 0 0 1
+pinnumber=31
+T 4200 1400 5 10 0 0 0 1 1
+pinseq=13
+T 5100 1415 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 1200 300 1200 1 0 0
+{
+T 315 1200 5 8 1 1 0 1 1
+pinlabel=PC2 (ADC2/PCINT10)
+T 125 1215 5 8 1 1 0 6 1
+pinnumber=25
+T 0 1200 5 10 0 0 0 7 1
+pinseq=14
+T -900 1215 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 1200 3900 1200 1 0 0
+{
+T 3885 1200 5 8 1 1 0 7 1
+pinlabel=(PCINT18/INT0) PD2
+T 4075 1215 5 8 1 1 0 0 1
+pinnumber=32
+T 4200 1200 5 10 0 0 0 1 1
+pinseq=15
+T 5100 1215 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 1000 300 1000 1 0 0
+{
+T 315 1000 5 8 1 1 0 1 1
+pinlabel=PC3 (ADC3/PCINT11)
+T 125 1015 5 8 1 1 0 6 1
+pinnumber=26
+T 0 1000 5 10 0 0 0 7 1
+pinseq=16
+T -900 1015 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 1000 3900 1000 1 0 0
+{
+T 3885 1000 5 8 1 1 0 7 1
+pinlabel=(PCINT19/OC2B/INT1) PD3
+T 4075 1015 5 8 1 1 0 0 1
+pinnumber=1
+T 4200 1000 5 10 0 0 0 1 1
+pinseq=17
+T 5100 1015 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 800 300 800 1 0 0
+{
+T 315 800 5 8 1 1 0 1 1
+pinlabel=PC4 (ADC4/SDA/PCINT12)
+T 125 815 5 8 1 1 0 6 1
+pinnumber=27
+T 0 800 5 10 0 0 0 7 1
+pinseq=18
+T -900 815 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 800 3900 800 1 0 0
+{
+T 3885 800 5 8 1 1 0 7 1
+pinlabel=(PCINT20/XCK/T0) PD4
+T 4075 815 5 8 1 1 0 0 1
+pinnumber=2
+T 4200 800 5 10 0 0 0 1 1
+pinseq=19
+T 5100 815 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 600 300 600 1 0 0
+{
+T 315 600 5 8 1 1 0 1 1
+pinlabel=PC5 (ADC5/SCL/PCINT13)
+T 125 615 5 8 1 1 0 6 1
+pinnumber=28
+T 0 600 5 10 0 0 0 7 1
+pinseq=20
+T -900 615 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 600 3900 600 1 0 0
+{
+T 3885 600 5 8 1 1 0 7 1
+pinlabel=(PCINT21/OC0B/T1) PD5
+T 4075 615 5 8 1 1 0 0 1
+pinnumber=9
+T 4200 600 5 10 0 0 0 1 1
+pinseq=21
+T 5100 615 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 400 300 400 1 0 0
+{
+T 315 400 5 8 1 1 0 1 1
+pinlabel=ADC6
+T 125 415 5 8 1 1 0 6 1
+pinnumber=19
+T 0 400 5 10 0 0 0 7 1
+pinseq=22
+T -900 415 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 400 3900 400 1 0 0
+{
+T 3885 400 5 8 1 1 0 7 1
+pinlabel=(PCINT22/OC0A/AIN0) PD6
+T 4075 415 5 8 1 1 0 0 1
+pinnumber=10
+T 4200 400 5 10 0 0 0 1 1
+pinseq=23
+T 5100 415 5 10 0 0 0 1 1
+pintype=out
+}
+P 0 200 300 200 1 0 0
+{
+T 315 200 5 8 1 1 0 1 1
+pinlabel=ADC7
+T 125 215 5 8 1 1 0 6 1
+pinnumber=22
+T 0 200 5 10 0 0 0 7 1
+pinseq=24
+T -900 215 5 10 0 0 0 7 1
+pintype=in
+}
+P 4200 200 3900 200 1 0 0
+{
+T 3885 200 5 8 1 1 0 7 1
+pinlabel=(PCINT23/AIN1) PD7
+T 4075 215 5 8 1 1 0 0 1
+pinnumber=11
+T 4200 200 5 10 0 0 0 1 1
+pinseq=25
+T 5100 215 5 10 0 0 0 1 1
+pintype=out
+}
