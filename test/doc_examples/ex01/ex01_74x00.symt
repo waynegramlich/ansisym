@@ -1,5 +1,5 @@
 # Generic '00 Quad 2-input NAND
-A device 74x00
+A device 74X00
 A bomdevice 74XXX00
 A description "TTL 2-input NAND"
 A refdes U?

@@ -316,6 +316,8 @@ class GraphicGlyph(Glyph):
 
 class GlyphicTile(Tile):
     "A tile containing a list of glyphs."
+    # Set of attributes that are not @@ referenceable.
+    _unreferenceable = frozenset(['device'])
     def __init__(self, aGlyphlist = []):
         self.glyphs = aGlyphlist
     @classmethod
@@ -356,19 +358,27 @@ class GlyphicTile(Tile):
             elif chunk[0] == '@':
                 # Create a RefGlyph
                 attrName = chunk.strip('@')
-                # FIXME: add semantic check disallowing 'device' as a refglyph
+                # disallow 'device' (maybe others?) as a refglyph
+                divertToText = attrName in cls._unreferenceable
                 try:
                     attr = attrDict[attrName]
-                    if attr.refBy(blockName):
-                        m = ''.join(['Attribute "',attrName,
-                            '" already referenced by block: ', blockName])
-                        er.ror.msg('f',m)
-                    else:
-                        l.append(RefGlyph(attr, blockName))
                 except:
                     m = ''.join(['Attribute "',attrName,
                         '" not defined.'])
                     er.ror.msg('f',m)
+                    return
+                if attr.refBy(blockName):
+                    m = ''.join(['Attribute "',attrName,
+                        '" already referenced by block: ', blockName])
+                    er.ror.msg('f',m)
+                else:
+                    if divertToText:
+                        er.ror.msg('w',''.join(["'",attrName,
+                            "' attributes can not be @referenced@, ",
+                            'value substituted as plain text.']))
+                        l.append(TextGlyph(attr.value))
+                    else:
+                        l.append(RefGlyph(attr, blockName))
             else:
                 # Ordinary TextGlyph
                 l.append(TextGlyph(chunk))
@@ -628,6 +638,16 @@ class Attr(ModelObject):
         self.value = str(aValue)
         # _refTo is a set of block names
         self._refTo = refTo if refTo != None else set()
+    @property
+    def value(self):
+        return self._value
+    @value.setter
+    def value(self,v):
+        # Sanity check values for some well-known attributes.
+        if self.name == 'device':
+            if v != v.upper():
+                er.ror.msg('w',"'device' attributes should be all upper case.")
+        self._value = v
     def reprvals(self):
         l = [self.name, self.value, self._refTo] 
         return l
