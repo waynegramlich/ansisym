@@ -170,7 +170,7 @@ override that method.
 Model data is not duplicated in view instances, instead,
 accessor functions extract the necessary data from model instances.
 
-## Error Reporting Stragegy
+## Error Reporting Strategy
 
 The ansisymErrorSink.py module implements a simple error
 message funnel and error counter.

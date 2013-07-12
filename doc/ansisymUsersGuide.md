@@ -110,7 +110,7 @@ in with 'AB'.
     AB
 
 At this point we are ready to start specifying the blocks.
-The 'BK' keyword starts a block line, and the paramter is
+The 'BK' keyword starts a block line, and the parameter is
 the name of the symbol, which also becomes the name of the resulting
 .sym file.  Let's start with the positive-logic block.
 Following gschem conventions, the symbol is named 74X00-1.
